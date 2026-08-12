@@ -19,11 +19,6 @@ Run it from the project root (the folder that contains "app/" and
 The API (app/main.py) never runs any of this itself — it only reads the
 files this script writes to "artifacts/". That's why the API stays fast
 even though step 4 here can take a while on a big catalogue.
-
-Note: the notebook also computed a "category_score" (key/mode/time
-signature match) in the personalization section, but that score was
-never actually used in the final personalized_score formula. It's left
-out here to keep this script simple.
 """
 
 import os
