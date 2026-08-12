@@ -1,0 +1,15 @@
+fastapi
+uvicorn[standard]
+pandas
+numpy
+scikit-learn
+joblib
+python-dotenv
+
+# pandas on some machines stores columns with pyarrow-backed dtypes,
+# so recommender.pkl may need pyarrow installed to be unpickled, even
+# though nothing in this project calls pyarrow directly.
+pyarrow
+
+# only needed by scripts/export_liked_songs.py
+spotipy
