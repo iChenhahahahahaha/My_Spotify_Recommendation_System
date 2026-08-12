@@ -103,6 +103,8 @@ I used [Render](https://render.com) which deploys directly from a Dockerfile. Th
 2. On Render: New → Web Service → connect the repo → it should auto-detect the Dockerfile → pick the Free instance type → deploy.
 3. Render gives you a public URL. Send that instead of `127.0.0.1`.
 
+**Live at:** https://my-spotify-recommendation-system.onrender.com/docs (first request after a while may take 30-60s while the free instance wakes up)
+
 Redeploy (rebuild + push) any time you rerun the refresh script.
 
 ## Things worth knowing before you rely on this
