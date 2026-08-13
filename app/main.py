@@ -95,6 +95,10 @@ def recommend(
     except ValueError as error:
         raise HTTPException(status_code=404, detail=str(error))
 
+    # Some rows in the public dataset are missing a value here or there
+    # (e.g. no popularity score). Pandas stores that as NaN, which is not
+    # valid JSON, so swap any NaN for None before returning.
+    results = results.where(pd.notnull(results), None)
     return results.to_dict(orient="records")
 
 
@@ -121,4 +125,8 @@ def recommend_personalized(
 
     results = results.sort_values("personalized_score", ascending=False).head(n)
 
+    # Same NaN issue as /recommend: the public dataset has some missing
+    # values that dropna() during refresh didn't catch, so clean those up
+    # here too before returning JSON.
+    results = results.where(pd.notnull(results), None)
     return results.to_dict(orient="records")
