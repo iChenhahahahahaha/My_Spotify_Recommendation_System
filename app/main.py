@@ -97,8 +97,9 @@ def recommend(
 
     # Some rows in the public dataset are missing a value here or there
     # (e.g. no popularity score). Pandas stores that as NaN, which is not
-    # valid JSON, so swap any NaN for None before returning.
-    results = results.where(pd.notnull(results), None)
+    # valid JSON. .astype(object) first so pandas can actually hold a
+    # real None instead of silently turning it back into NaN.
+    results = results.astype(object).where(results.notna(), None)
     return results.to_dict(orient="records")
 
 
@@ -128,5 +129,5 @@ def recommend_personalized(
     # Same NaN issue as /recommend: the public dataset has some missing
     # values that dropna() during refresh didn't catch, so clean those up
     # here too before returning JSON.
-    results = results.where(pd.notnull(results), None)
+    results = results.astype(object).where(results.notna(), None)
     return results.to_dict(orient="records")
